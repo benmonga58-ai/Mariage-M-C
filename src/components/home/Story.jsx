@@ -13,7 +13,7 @@ export default function Story() {
 
         <p className="mt-10 text-lg leading-8 text-gray-600">
           Chaque histoire est unique. La nôtre est faite de confiance,
-          de complicité et d'amour. Nous serions honorés de vous avoir
+          de complicité et d'amour. Nous serons honorés de vous avoir
           à nos côtés pour célébrer cette nouvelle étape de notre vie.
         </p>
 

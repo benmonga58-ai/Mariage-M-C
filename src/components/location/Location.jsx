@@ -14,7 +14,7 @@ export default function Location() {
         </h2>
 
         <p className="text-gray-600 mt-5 max-w-2xl mx-auto leading-8">
-          Nous serions honorés de partager cette soirée inoubliable avec vous.
+          Nous serons honorés de partager cette soirée inoubliable avec vous.
         </p>
 
         <div className="mt-12 bg-white rounded-[35px] shadow-xl border border-[#EFE4D8] p-10">

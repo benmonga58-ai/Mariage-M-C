@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Countdown() {
   const targetDate = new Date(2026, 7, 29, 0, 0, 0).getTime();
@@ -17,7 +18,9 @@ export default function Countdown() {
     }
 
     return {
-      days: String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(2, "0"),
+      days: String(
+        Math.floor(difference / (1000 * 60 * 60 * 24))
+      ).padStart(2, "0"),
       hours: String(
         Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       ).padStart(2, "0"),
@@ -40,47 +43,70 @@ export default function Countdown() {
     return () => clearInterval(interval);
   }, []);
 
+  const items = [
+    { value: timeLeft.days, label: "JOURS" },
+    { value: timeLeft.hours, label: "HEURES" },
+    { value: timeLeft.minutes, label: "MINUTES" },
+    { value: timeLeft.seconds, label: "SECONDES" },
+  ];
+
   return (
-    <section className="bg-[#F8F4EF] py-24 px-6">
-      <div className="max-w-5xl mx-auto text-center">
+    <section className="bg-[#F8F4EF] py-28 px-6">
+      <div className="max-w-6xl mx-auto text-center">
 
-        <p className="uppercase tracking-[6px] text-[#B58A8A] text-sm">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="uppercase tracking-[8px] text-[#9B6A6A] text-sm"
+        >
           COMPTE À REBOURS
-        </p>
+        </motion.p>
 
-        <h2 className="mt-4 text-6xl font-serif text-[#7B1E1E]">
+        <motion.h2
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-6 text-5xl md:text-7xl font-serif text-[#7B1E1E]"
+        >
           Le grand jour approche
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mt-20">
 
-          <div className="bg-white rounded-3xl shadow-xl p-8">
-            <h3 className="text-5xl font-bold text-[#7B1E1E]">
-              {timeLeft.days}
-            </h3>
-            <p className="mt-3 uppercase text-sm">Jours</p>
-          </div>
+          {items.map((item, index) => (
 
-          <div className="bg-white rounded-3xl shadow-xl p-8">
-            <h3 className="text-5xl font-bold text-[#7B1E1E]">
-              {timeLeft.hours}
-            </h3>
-            <p className="mt-3 uppercase text-sm">Heures</p>
-          </div>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.15,
+                duration: 0.7,
+              }}
+            >
 
-          <div className="bg-white rounded-3xl shadow-xl p-8">
-            <h3 className="text-5xl font-bold text-[#7B1E1E]">
-              {timeLeft.minutes}
-            </h3>
-            <p className="mt-3 uppercase text-sm">Minutes</p>
-          </div>
+              <motion.h3
+                key={item.value}
+                initial={{ opacity: 0.4, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="font-serif text-[#7B1E1E] text-7xl md:text-8xl"
+              >
+                {item.value}
+              </motion.h3>
 
-          <div className="bg-white rounded-3xl shadow-xl p-8">
-            <h3 className="text-5xl font-bold text-[#7B1E1E]">
-              {timeLeft.seconds}
-            </h3>
-            <p className="mt-3 uppercase text-sm">Secondes</p>
-          </div>
+              <div className="w-14 h-[2px] bg-[#D9C1AE] mx-auto my-5"></div>
+
+              <p className="uppercase tracking-[5px] text-sm text-[#8A6A6A]">
+                {item.label}
+              </p>
+
+            </motion.div>
+
+          ))}
 
         </div>
 

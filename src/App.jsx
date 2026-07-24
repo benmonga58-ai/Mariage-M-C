@@ -7,6 +7,7 @@ import Countdown from "./components/countdown/Countdown";
 import Program from "./components/invitation/Program";
 import Location from "./components/location/Location";
 import Gallery from "./components/gallery/Gallery";
+import Gift from "./components/gift/Gift";
 import RSVP from "./components/rsvp/RSVP";
 import MusicPlayer from "./components/common/MusicPlayer";
 import Admin from "./components/Admin";
@@ -61,12 +62,14 @@ function Invitation() {
   return (
     <>
       <MusicPlayer play={opened} />
+
       <Hero />
       <Story />
       <Countdown />
       <Program />
       <Location />
       <Gallery />
+      <Gift />
       <RSVP />
     </>
   );

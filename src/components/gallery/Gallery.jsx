@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import "./gallery.css";
 
 const images = [
   "/images/gallery1.jpg",
@@ -12,11 +13,41 @@ const images = [
   "/images/gallery8.jpg",
 ];
 
+function MarqueeRow({ images, direction, duration, onSelect }) {
+  const duplicated = [...images, ...images];
+
+  return (
+    <div className="overflow-hidden py-4">
+      <motion.div
+        className="flex gap-6 w-max"
+        animate={{
+          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
+        }}
+        transition={{
+          duration,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      >
+        {duplicated.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt=""
+            onClick={() => onSelect(img)}
+            className="w-[260px] h-[360px] object-cover rounded-3xl shadow-xl cursor-pointer transition-transform duration-500 hover:scale-105"
+          />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section className="bg-[#F8F4EF] py-20">
+    <section id="gallery" className="bg-[#F8F4EF] py-20">
       <div className="max-w-7xl mx-auto px-6">
 
         <motion.div
@@ -35,20 +66,19 @@ export default function Gallery() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {images.map((image, index) => (
-            <motion.img
-              key={index}
-              src={image}
-              alt=""
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedImage(image)}
-              className="rounded-3xl shadow-xl object-cover w-full h-[300px] cursor-pointer"
-            />
-          ))}
-        </div>
+        <MarqueeRow
+          images={images.slice(0, 4)}
+          direction="left"
+          duration={30}
+          onSelect={setSelectedImage}
+        />
 
+        <MarqueeRow
+          images={images.slice(4, 8)}
+          direction="right"
+          duration={30}
+          onSelect={setSelectedImage}
+        />
       </div>
 
       <AnimatePresence>

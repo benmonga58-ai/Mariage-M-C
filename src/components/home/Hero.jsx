@@ -10,7 +10,7 @@ export default function Hero() {
     >
       {/* Image de fond */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-[center_25%]"
         style={{
           backgroundImage: "url('/images/couple.jpg')",
         }}
@@ -22,8 +22,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/45"></div>
+      {/* Overlay Premium */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/85" />
 
       {/* Contenu */}
       <motion.div
@@ -79,7 +79,7 @@ export default function Hero() {
           className="mt-10"
         >
           <p className="font-title uppercase tracking-[4px] text-[#E9D7C3] text-sm">
-            Vendredi
+            Samedi
           </p>
 
           <h2 className="font-title text-[#F8F4EF] text-4xl md:text-5xl mt-2">
