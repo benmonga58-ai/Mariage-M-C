@@ -131,6 +131,16 @@ export default function RSVP() {
           >
             Confirmer ma présence
           </button>
+
+          <div className="mt-10 text-center">
+            <h3 className="font-serif text-3xl text-[#8B2E2E]">
+              Cadeau en espèces
+            </h3>
+
+            <p className="mt-2 italic text-gray-500">
+              Merci de votre générosité.
+            </p>
+          </div>
         </form>
       </div>
     </section>
