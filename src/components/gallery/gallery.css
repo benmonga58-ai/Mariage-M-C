@@ -1,42 +1,156 @@
-/* Cache ce qui dépasse pendant l'animation */
 #gallery {
   overflow: hidden;
 }
 
-/* Les images */
 #gallery img {
   user-select: none;
   -webkit-user-drag: none;
   display: block;
 }
 
-/* Cache la barre de défilement */
-::-webkit-scrollbar {
-  display: none;
-}
-
 body {
   overflow-x: hidden;
 }
 
-/* Léger fondu sur les bords */
-#gallery::before,
-#gallery::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 80px;
+/* =========================
+   EN-TÊTE
+========================= */
+
+.gallery-eyebrow {
+  margin: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: #777;
+}
+
+.gallery-title {
+  margin-top: 20px;
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: 0.95;
+  font-weight: 300;
+  letter-spacing: -0.055em;
+}
+
+.gallery-title span {
+  font-weight: 600;
+}
+
+.gallery-line {
+  width: 48px;
+  height: 1px;
+  background: rgba(23, 23, 23, 0.3);
+  margin: 30px auto;
+}
+
+.gallery-description {
+  max-width: 480px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #777;
+}
+
+/* =========================
+   MARQUEE
+========================= */
+
+.gallery-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  padding: 0 9px;
+}
+
+.gallery-image-wrapper {
+  flex-shrink: 0;
+  width: 220px;
+  height: 290px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-image-tall {
+  width: 250px;
+  height: 340px;
+}
+
+.gallery-image {
+  width: 100%;
   height: 100%;
-  z-index: 10;
-  pointer-events: none;
+  object-fit: cover;
+  transition: transform 0.7s ease;
 }
 
-#gallery::before {
-  left: 0;
-  background: linear-gradient(to right, #faf7f4, transparent);
+.gallery-image-wrapper:hover .gallery-image {
+  transform: scale(1.04);
 }
 
-#gallery::after {
-  right: 0;
-  background: linear-gradient(to left, #faf7f4, transparent);
+/* =========================
+   BARRES DE DÉFILEMENT
+========================= */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 768px) {
+  .gallery-track {
+    gap: 24px;
+    padding: 0 12px;
+  }
+
+  .gallery-image-wrapper {
+    width: 300px;
+    height: 390px;
+  }
+
+  .gallery-image-tall {
+    width: 340px;
+    height: 450px;
+  }
+
+  .gallery-marquee {
+    padding: 14px 0;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .gallery-description {
+    font-size: 13px;
+    padding: 0 15px;
+  }
+
+  .gallery-track {
+    gap: 12px;
+    padding: 0 6px;
+  }
+
+  .gallery-image-wrapper {
+    width: 190px;
+    height: 255px;
+  }
+
+  .gallery-image-tall {
+    width: 210px;
+    height: 285px;
+  }
+
+  .gallery-marquee {
+    padding: 8px 0;
+  }
 }

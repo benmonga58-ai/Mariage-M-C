@@ -5,66 +5,108 @@ export default function RSVP() {
   const [fullName, setFullName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [presence, setPresence] = useState("");
-  const [guestsCount, setGuestsCount] = useState("");
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { error } = await supabase
-      .from("guets")
-      .insert([
-        {
-          full_name: fullName,
-          telephone: telephone,
-          presence: presence,
-          guests_count: Number(guestsCount),
-          message: message,
-        },
-      ]);
-
-    if (error) {
-      alert("Erreur : " + error.message);
-      console.error(error);
+    if (!fullName.trim() || !telephone.trim() || !presence) {
+      alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
 
-    alert("Votre présence a été confirmée avec succès !");
+    setLoading(true);
+    setSuccess(false);
 
-    setFullName("");
-    setTelephone("");
-    setPresence("");
-    setGuestsCount("");
-    setMessage("");
+    try {
+      const { error } = await supabase
+        .from("guets")
+        .insert([
+          {
+            full_name: fullName.trim(),
+            telephone: telephone.trim(),
+            presence: presence,
+            message: message.trim(),
+          },
+        ]);
+
+      if (error) {
+        console.error("Erreur Supabase :", error);
+        alert("Erreur lors de l'enregistrement : " + error.message);
+        return;
+      }
+
+      // Confirmation enregistrée
+      setSuccess(true);
+
+      // Réinitialisation du formulaire
+      setFullName("");
+      setTelephone("");
+      setPresence("");
+      setMessage("");
+
+    } catch (error) {
+      console.error("Erreur réseau :", error);
+
+      alert(
+        "Impossible de contacter le serveur. Vérifiez votre connexion et la configuration Supabase."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section className="bg-white py-24 px-6">
+    <section id="rsvp" className="bg-[#f7efe2] py-24 px-6">
       <div className="max-w-3xl mx-auto">
+
+        {/* Introduction */}
         <div className="text-center">
-          <p className="uppercase tracking-[0.35em] text-[#8B2E2E] text-sm">
+          <p className="uppercase tracking-[0.35em] text-[#6b2f13] text-sm">
             RSVP
           </p>
 
-          <h2 className="text-5xl font-serif text-[#2E2E2E] mt-4">
+          <h2 className="text-5xl font-serif text-[#35170b] mt-4">
             Confirmez votre présence
           </h2>
 
-          <p className="mt-6 text-gray-600">
-            Merci de nous confirmer votre présence avant le 20 août 2026.
+          <p className="mt-6 text-[#35170b]/65">
+            Merci de nous confirmer votre présence à la célébration
+            de l'anniversaire d'Emmanuel.
           </p>
         </div>
 
+        {/* Confirmation */}
+        {success && (
+          <div className="mt-10 rounded-2xl border border-[#6b2f13]/20 bg-white px-6 py-5 text-center">
+            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#6b2f13] text-white">
+              ✓
+            </div>
+
+            <h3 className="text-lg font-semibold text-[#35170b]">
+              Confirmation enregistrée
+            </h3>
+
+            <p className="mt-2 text-sm text-[#35170b]/65">
+              Votre enregistrement a bien été confirmé.
+              Merci et à très bientôt !
+            </p>
+          </div>
+        )}
+
+        {/* Formulaire */}
         <form
           onSubmit={handleSubmit}
-          className="mt-12 bg-[#F8F4EF] rounded-[30px] shadow-lg p-8"
+          className="mt-12 rounded-[30px] bg-white p-8 shadow-lg md:p-10"
         >
           <input
             type="text"
             placeholder="Nom et prénom"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-5 outline-none focus:border-[#8B2E2E]"
+            className="mb-5 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#6b2f13]"
             required
           />
 
@@ -73,72 +115,67 @@ export default function RSVP() {
             placeholder="Téléphone"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-5 outline-none focus:border-[#8B2E2E]"
+            className="mb-6 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#6b2f13]"
             required
           />
 
-          <div className="mb-5">
-            <p className="font-medium text-[#2E2E2E] mb-3">
-              Serez-vous présent ?
+          <div className="mb-6">
+            <p className="mb-3 font-medium text-[#35170b]">
+              Serez-vous présent(e) ?
             </p>
 
-            <label className="flex items-center mb-2">
+            <label className="mb-3 flex cursor-pointer items-center">
               <input
                 type="radio"
                 name="presence"
                 value="oui"
                 checked={presence === "oui"}
                 onChange={(e) => setPresence(e.target.value)}
-                className="mr-2"
+                className="mr-3"
                 required
               />
               Oui, je serai présent(e)
             </label>
 
-            <label className="flex items-center">
+            <label className="flex cursor-pointer items-center">
               <input
                 type="radio"
                 name="presence"
                 value="non"
                 checked={presence === "non"}
                 onChange={(e) => setPresence(e.target.value)}
-                className="mr-2"
+                className="mr-3"
               />
               Non, je ne pourrai pas être présent(e)
             </label>
           </div>
 
-          <input
-            type="number"
-            placeholder="Nombre d'accompagnants"
-            min="0"
-            value={guestsCount}
-            onChange={(e) => setGuestsCount(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-5 outline-none focus:border-[#8B2E2E]"
-          />
-
           <textarea
-            placeholder="Laissez un petit message aux mariés (facultatif)"
+            placeholder="Laissez un petit message à Emmanuel (facultatif)"
             rows="4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-6 outline-none focus:border-[#8B2E2E]"
+            className="mb-6 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-[#6b2f13]"
           />
 
           <button
             type="submit"
-            className="w-full bg-[#8B2E2E] hover:bg-[#6E2020] text-white py-4 rounded-full transition"
+            disabled={loading}
+            className="w-full rounded-full bg-[#6b2f13] py-4 text-white transition hover:bg-[#4e200c] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Confirmer ma présence
+            {loading
+              ? "Enregistrement..."
+              : "Confirmer ma présence"}
           </button>
 
-          <div className="mt-10 text-center">
-            <h3 className="font-serif text-3xl text-[#8B2E2E]">
-              Cadeau en espèces
-            </h3>
-
-            <p className="mt-2 italic text-gray-500">
-              Merci de votre générosité.
+          {/* Message surprise */}
+          <div className="mt-10 border-t border-[#6b2f13]/10 pt-8 text-center">
+            <p className="text-xs leading-5 text-[#35170b]/60">
+              <span className="font-semibold text-[#6b2f13]">
+                NB :
+              </span>{" "}
+              Ceci est une surprise d'anniversaire. Merci de préserver
+              la discrétion afin que l'émotion du jour reste intacte.
             </p>
           </div>
         </form>

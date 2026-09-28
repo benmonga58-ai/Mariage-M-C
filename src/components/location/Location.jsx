@@ -1,59 +1,119 @@
 import { MapPin, Clock, Navigation } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Location() {
   return (
-    <section className="bg-[#F8F4EF] py-24 px-6">
-      <div className="max-w-4xl mx-auto text-center">
+    <section
+      id="location"
+      className="relative bg-[#f8f8f6] text-[#171717] py-28 md:py-36 px-6 overflow-hidden"
+    >
+      <div className="max-w-5xl mx-auto">
 
-        <p className="uppercase tracking-[0.35em] text-[#8B2E2E] text-sm">
-          Réception
-        </p>
+        {/* En-tête */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
+        >
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-[#777]">
+            L'itinéraire
+          </p>
 
-        <h2 className="text-5xl font-serif text-[#2E2E2E] mt-4">
-          Lieu de la réception
-        </h2>
+          <h2 className="mt-5 text-4xl md:text-6xl font-light tracking-[-0.04em]">
+            Rendez-vous au restaurant
+          </h2>
 
-        <p className="text-gray-600 mt-5 max-w-2xl mx-auto leading-8">
-          Nous serons honorés de partager cette soirée inoubliable avec vous.
-        </p>
+          <div className="w-12 h-px bg-[#171717]/30 mx-auto mt-8" />
+        </motion.div>
 
-        <div className="mt-12 bg-white rounded-[35px] shadow-xl border border-[#EFE4D8] p-10">
+        {/* Informations */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="max-w-2xl mx-auto text-center mt-16"
+        >
+          <p className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[#888]">
+            Le lieu
+          </p>
 
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-[#8B2E2E]/10 flex items-center justify-center">
-              <MapPin className="text-[#8B2E2E]" size={30} />
-            </div>
-          </div>
-
-          <h3 className="text-3xl font-serif text-[#8B2E2E]">
-            Salle de fête BIBI ELONGA
+          <h3 className="mt-4 text-3xl md:text-5xl font-light tracking-[-0.03em]">
+            Restaurant Vilakazi
           </h3>
 
-          <div className="mt-8 space-y-5">
+          <p className="mt-5 text-sm md:text-base text-[#666]">
+            Samedi 10 octobre 2026
+          </p>
 
-            <div className="flex justify-center items-center gap-3 text-gray-600">
-              <MapPin size={20} />
-              <span>En face de Kin Marché Brikin</span>
+          {/* Infos pratiques */}
+          <div className="mt-12 flex flex-col md:flex-row justify-center gap-8 md:gap-16">
+
+            <div className="flex items-center justify-center gap-3 text-sm text-[#666]">
+              <MapPin size={18} strokeWidth={1.5} />
+              <span>Restaurant Vilakazi</span>
             </div>
 
-            <div className="flex justify-center items-center gap-3 text-gray-600">
-              <Clock size={20} />
-              <span>Début de la réception : <strong>19h00</strong></span>
+            <div className="flex items-center justify-center gap-3 text-sm text-[#666]">
+              <Clock size={18} strokeWidth={1.5} />
+              <span>
+                Début à <strong className="text-[#171717]">16h30</strong>
+              </span>
             </div>
 
           </div>
 
-          <a
-            href="https://maps.app.goo.gl/uEFw5waV16NKsY7k9?g_st=ipc"
+          {/* Google Maps */}
+          <motion.a
+            href="https://maps.app.goo.gl/fkpQ4pPdarXVR1Yy5?g_st=ic"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-3 bg-[#8B2E2E] hover:bg-[#6E2020] text-white px-10 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="
+              inline-flex
+              items-center
+              justify-center
+              gap-3
+              mt-12
+              px-8
+              py-4
+              border
+              border-[#171717]
+              rounded-full
+              text-xs
+              md:text-sm
+              tracking-wide
+              transition-all
+              duration-300
+              hover:bg-[#171717]
+              hover:text-white
+            "
           >
-            <Navigation size={20} />
-            Obtenir mon itinéraire
-          </a>
+            <Navigation size={17} strokeWidth={1.5} />
+            Ouvrir l'itinéraire
+          </motion.a>
 
-        </div>
+        </motion.div>
+
+        {/* Note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="
+            text-center
+            text-[10px]
+            md:text-xs
+            text-[#999]
+            mt-16
+          "
+        >
+          Votre présence rendra cette journée encore plus spéciale.
+        </motion.p>
 
       </div>
     </section>

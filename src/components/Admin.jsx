@@ -68,228 +68,242 @@ export default function Admin() {
     0
   );
 
-  return (<div className="min-h-screen bg-[#F8F4EF] p-8">
+  return (
+    <div className="relative min-h-screen bg-[#0d0e12] p-8 overflow-hidden">
 
-      {/* En-tête */}
-      <motion.div
-        initial={{ opacity: 0, y: -25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-10"
-      >
-        <p className="uppercase tracking-[6px] text-[#B48A8A] text-sm">
-          Tableau de bord
-        </p>
+      {/* Halo de fond, cohérent avec le reste du site */}
+      <div className="absolute top-0 left-1/3 w-[500px] h-[500px]
+                       bg-[#D8C4A3]/10 rounded-full blur-[120px] pointer-events-none" />
 
-        <h1 className="text-5xl font-serif text-[#7B1E1E] mt-3">
-          Administration du Mariage
-        </h1>
+      <div className="relative">
 
-        <p className="text-gray-500 mt-3">
-          Gérez toutes les confirmations de présence.
-        </p>
-      </motion.div>
+        {/* En-tête */}
+        <motion.div
+          initial={{ opacity: 0, y: -25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-10"
+        >
+          <p className="uppercase tracking-[6px] text-[#D8C4A3]/80 text-sm">
+            Tableau de bord
+          </p>
 
-      {/* Cartes statistiques */}
+          <h1 className="text-4xl md:text-5xl font-serif font-light text-white mt-3">
+            Administration du Mariage
+          </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <p className="text-white/50 mt-3">
+            Gérez toutes les confirmations de présence.
+          </p>
+        </motion.div>
 
-        {[
-          {
-            title: "Invités",
-            value: total,
-            color: "text-[#7B1E1E]",
-          },
-          {
-            title: "Présents",
-            value: presents,
-            color: "text-green-600",
-          },
-          {
-            title: "Absents",
-            value: absents,
-            color: "text-red-500",
-          },
-          {
-            title: "Accompagnants",
-            value: accompagnants,
-            color: "text-[#C38B2A]",
-          },
-        ].map((card, index) => (
+        {/* Cartes statistiques */}
 
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: index * 0.15,
-            }}
-            whileHover={{
-              y: -5,
-              scale: 1.02,
-            }}
-            className="bg-white rounded-3xl shadow-lg border border-[#ECE2D8] p-8"
-          >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
 
-            <p className="text-gray-500">
-              {card.title}
-            </p>
+          {[
+            {
+              title: "Invités",
+              value: total,
+              color: "text-white",
+            },
+            {
+              title: "Présents",
+              value: presents,
+              color: "text-emerald-400",
+            },
+            {
+              title: "Absents",
+              value: absents,
+              color: "text-red-400",
+            },
+            {
+              title: "Accompagnants",
+              value: accompagnants,
+              color: "text-[#D8C4A3]",
+            },
+          ].map((card, index) => (
 
-            <h2 className={`text-5xl font-serif mt-3 ${card.color}`}>
-              {card.value}
-            </h2>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: index * 0.15,
+              }}
+              whileHover={{
+                y: -5,
+                scale: 1.02,
+              }}
+              className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-8"
+            >
 
-          </motion.div>
+              <p className="text-white/50">
+                {card.title}
+              </p>
 
-        ))}
+              <h2 className={`text-5xl font-serif font-light mt-3 ${card.color}`}>
+                {card.value}
+              </h2>
 
-      </div>
+            </motion.div>
 
-      {/* Recherche */}
+          ))}
 
-      <div className="bg-white rounded-2xl shadow-md border border-[#ECE2D8] p-5 mb-8">
+        </div>
 
-        <input
-          type="text"
-          placeholder="🔍 Rechercher un invité..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full outline-none text-lg"
-        />
+        {/* Recherche */}
 
-      </div>{/* Tableau des invités */}
+        <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-5 mb-8">
 
-      <div className="bg-white rounded-3xl shadow-lg border border-[#ECE2D8] overflow-hidden">
+          <input
+            type="text"
+            placeholder="🔍 Rechercher un invité..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full outline-none text-lg bg-transparent text-white placeholder-white/40"
+          />
 
-        <div className="overflow-x-auto">
+        </div>
 
-          <table className="w-full">
+        {/* Tableau des invités */}
 
-            <thead className="bg-[#7B1E1E] text-white">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl overflow-hidden">
 
-              <tr>
+          <div className="overflow-x-auto">
 
-                <th className="text-left p-5">Nom</th>
+            <table className="w-full text-white">
 
-                <th className="text-left p-5">Téléphone</th>
-
-                <th className="text-center p-5">Présence</th>
-
-                <th className="text-center p-5">Accompagnants</th>
-
-                <th className="text-left p-5">Message</th>
-
-                <th className="text-center p-5">Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {loading ? (
+              <thead className="bg-white/10 border-b border-white/15">
 
                 <tr>
 
-                  <td
-                    colSpan="6"
-                    className="text-center py-10 text-gray-500"
-                  >
-                    Chargement...
-                  </td>
+                  <th className="text-left p-5 font-medium">Nom</th>
+
+                  <th className="text-left p-5 font-medium">Téléphone</th>
+
+                  <th className="text-center p-5 font-medium">Présence</th>
+
+                  <th className="text-center p-5 font-medium">Accompagnants</th>
+
+                  <th className="text-left p-5 font-medium">Message</th>
+
+                  <th className="text-center p-5 font-medium">Action</th>
 
                 </tr>
 
-              ) : filteredGuests.length === 0 ? (
+              </thead>
 
-                <tr>
+              <tbody>
 
-                  <td
-                    colSpan="6"
-                    className="text-center py-10 text-gray-500"
-                  >
-                    Aucun invité trouvé.
-                  </td>
+                {loading ? (
 
-                </tr>
+                  <tr>
 
-              ) : (
-
-                filteredGuests.map((guest) => (
-
-                  <tr
-                    key={guest.id}
-                    className="border-b hover:bg-[#FAF7F3] transition"
-                  >
-
-                    <td className="p-5 font-semibold">
-                      {guest.full_name}
-                    </td>
-
-                    <td className="p-5">
-                      {guest.telephone}
-                    </td>
-
-                    <td className="text-center p-5">
-
-                      <span
-                        className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                          guest.presence === "oui"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
-                        }`}
-                      >
-                        {guest.presence === "oui"
-                          ? "Présent"
-                          : "Absent"}
-                      </span>
-
-                    </td>
-
-                    <td className="text-center p-5">
-                      {guest.guests_count || 0}
-                    </td>
-
-                    <td className="p-5 max-w-xs">
-                      {guest.message || "-"}
-                    </td>
-
-                    <td className="text-center p-5"><button
-                        onClick={() => deleteGuest(guest.id)}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl transition"
-                      >
-                        Supprimer
-                      </button>
-
+                    <td
+                      colSpan="6"
+                      className="text-center py-10 text-white/50"
+                    >
+                      Chargement...
                     </td>
 
                   </tr>
 
-                ))
+                ) : filteredGuests.length === 0 ? (
 
-              )}
+                  <tr>
 
-            </tbody>
+                    <td
+                      colSpan="6"
+                      className="text-center py-10 text-white/50"
+                    >
+                      Aucun invité trouvé.
+                    </td>
 
-          </table>
+                  </tr>
+
+                ) : (
+
+                  filteredGuests.map((guest) => (
+
+                    <tr
+                      key={guest.id}
+                      className="border-b border-white/10 hover:bg-white/5 transition"
+                    >
+
+                      <td className="p-5 font-semibold">
+                        {guest.full_name}
+                      </td>
+
+                      <td className="p-5 text-white/70">
+                        {guest.telephone}
+                      </td>
+
+                      <td className="text-center p-5">
+
+                        <span
+                          className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                            guest.presence === "oui"
+                              ? "bg-emerald-400/15 text-emerald-400"
+                              : "bg-red-400/15 text-red-400"
+                          }`}
+                        >
+                          {guest.presence === "oui"
+                            ? "Présent"
+                            : "Absent"}
+                        </span>
+
+                      </td>
+
+                      <td className="text-center p-5 text-white/70">
+                        {guest.guests_count || 0}
+                      </td>
+
+                      <td className="p-5 max-w-xs text-white/60">
+                        {guest.message || "-"}
+                      </td>
+
+                      <td className="text-center p-5">
+                        <button
+                          onClick={() => deleteGuest(guest.id)}
+                          className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-xl transition border border-red-400/20"
+                        >
+                          Supprimer
+                        </button>
+
+                      </td>
+
+                    </tr>
+
+                  ))
+
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
 
         </div>
 
-      </div>{/* Pied de page */}
+        {/* Pied de page */}
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="mt-10 text-center"
-      >
-        <p className="text-gray-500 text-sm">
-          Manix & Christelle • Tableau de bord RSVP
-        </p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-10 text-center"
+        >
+          <p className="text-white/50 text-sm">
+            Manix & Christelle • Tableau de bord RSVP
+          </p>
 
-        <p className="text-xs text-gray-400 mt-2">
-          Les données sont synchronisées avec Supabase.
-        </p>
-      </motion.div></div>
+          <p className="text-xs text-white/30 mt-2">
+            Les données sont synchronisées avec Supabase.
+          </p>
+        </motion.div>
+      </div>
+    </div>
   );
 }

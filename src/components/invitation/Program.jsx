@@ -1,120 +1,229 @@
 import { motion } from "framer-motion";
 
-const events = [
-  {
-    date: "27 AOÛT 2026",
-    title: "Mariage civil",
-    description: "Première célébration de notre union.",
-  },
-  {
-    date: "29 AOÛT 2026",
-    title: "Cérémonie religieuse",
-    description: "À partir de 16h",
-  },
-  {
-    date: "29 AOÛT 2026",
-    title: "Soirée de réception",
-    description: "À partir de 19h00",
-  },
+const restaurantPhotos = [
+  "/images/restaurant1.jpg",
+  "/images/restaurant2.jpg",
+  "/images/restaurant3.jpg",
 ];
 
 export default function Program() {
   return (
-    <section className="bg-[#F8F4EF] py-28 px-6">
-      <div className="max-w-3xl mx-auto">
+    <section className="relative bg-[#f8f8f6] text-[#171717] py-28 md:py-36 overflow-hidden">
+
+      {/* EN-TÊTE */}
+      <div className="max-w-5xl mx-auto px-6 text-center">
 
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center uppercase tracking-[6px] text-[#B58A8A] text-sm"
+          transition={{ duration: 0.7 }}
+          className="
+            text-[10px]
+            md:text-xs
+            uppercase
+            tracking-[0.35em]
+            text-[#777]
+          "
         >
-          PROGRAMME
+          La célébration
         </motion.p>
 
         <motion.h2
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center text-5xl font-serif text-[#7B1E1E] mt-4 mb-24"
+          transition={{ duration: 0.8 }}
+          className="
+            mt-5
+            text-4xl
+            md:text-6xl
+            font-light
+            tracking-[-0.04em]
+          "
         >
-          Nos célébrations
+          Un moment à partager
         </motion.h2>
 
-        <div className="relative ml-8">
-
-          {/* Ligne verticale */}
-          <motion.div
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2 }}
-            className="absolute left-0 top-0 w-[2px] rounded-full
-                       bg-gradient-to-b
-                       from-[#E8D6C8]
-                       via-[#CFA6A6]
-                       to-[#7B1E1E]"
-          />
-
-          {events.map((event, index) => (
-
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: 35 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.25,
-              }}
-              whileHover={{
-                x: 6,
-              }}
-              className={`relative pl-14 ${
-                index !== events.length - 1 ? "pb-20" : ""
-              }`}
-            >
-
-              {/* Point */}
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  type: "spring",
-                  stiffness: 280,
-                  damping: 12,
-                  delay: index * 0.25,
-                }}
-                className="absolute -left-[12px] top-1
-                           w-6 h-6
-                           rounded-full
-                           bg-[#7B1E1E]
-                           border-4 border-white
-                           shadow-md"
-              />
-
-              <p className="uppercase tracking-[4px] text-[#B58A8A] text-sm">
-                {event.date}
-              </p>
-
-              <h3 className="text-4xl font-serif text-[#7B1E1E] mt-2">
-                {event.title}
-              </h3>
-
-              <p className="mt-4 text-gray-600 text-lg">
-                {event.description}
-              </p>
-
-            </motion.div>
-
-          ))}
-
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="
+            max-w-md
+            mx-auto
+            mt-6
+            text-sm
+            md:text-base
+            leading-relaxed
+            text-[#666]
+          "
+        >
+          Pour célébrer les 18 ans d'Emmanuel,
+          retrouvons-nous autour d'une belle table.
+        </motion.p>
 
       </div>
+
+
+      {/* RESTAURANT */}
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="text-center mt-16 px-6"
+      >
+
+        <p className="
+          text-[9px]
+          md:text-[10px]
+          uppercase
+          tracking-[0.3em]
+          text-[#888]
+        ">
+          Le lieu
+        </p>
+
+        <h3 className="
+          mt-3
+          text-3xl
+          md:text-5xl
+          font-light
+          tracking-[-0.03em]
+        ">
+          Restaurant Vilakazi
+        </h3>
+
+        <p className="mt-3 text-sm text-[#777]">
+          Samedi 10 octobre 2026
+        </p>
+
+      </motion.div>
+
+
+      {/* RUBAN PHOTOS */}
+      <div className="relative mt-16 overflow-hidden">
+
+        <motion.div
+          className="flex gap-5 w-max"
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            duration: 25,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+
+          {/* Série 1 */}
+          {restaurantPhotos.map((photo, index) => (
+            <div
+              key={`first-${index}`}
+              className="
+                w-[230px]
+                h-[300px]
+                md:w-[320px]
+                md:h-[410px]
+                flex-shrink-0
+                overflow-hidden
+              "
+            >
+              <img
+                src={photo}
+                alt={`Restaurant Vilakazi ${index + 1}`}
+                className="
+                  w-full
+                  h-full
+                  object-cover
+                  transition-transform
+                  duration-700
+                  hover:scale-105
+                "
+              />
+            </div>
+          ))}
+
+          {/* Série 2 — copie exacte pour la boucle */}
+          {restaurantPhotos.map((photo, index) => (
+            <div
+              key={`second-${index}`}
+              className="
+                w-[230px]
+                h-[300px]
+                md:w-[320px]
+                md:h-[410px]
+                flex-shrink-0
+                overflow-hidden
+              "
+            >
+              <img
+                src={photo}
+                alt={`Restaurant Vilakazi ${index + 1}`}
+                className="
+                  w-full
+                  h-full
+                  object-cover
+                  transition-transform
+                  duration-700
+                  hover:scale-105
+                "
+              />
+            </div>
+          ))}
+
+        </motion.div>
+
+      </div>
+
+
+      {/* DATE + BOUTON */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="text-center mt-16 px-6"
+      >
+
+        <p className="
+          text-xs
+          md:text-sm
+          tracking-[0.2em]
+          uppercase
+          text-[#777]
+        ">
+          10 OCTOBRE 2026
+        </p>
+
+        <a
+          href="#location"
+          className="
+            inline-flex
+            items-center
+            justify-center
+            mt-7
+            px-7
+            py-3
+            border
+            border-[#171717]
+            rounded-full
+            text-xs
+            md:text-sm
+            tracking-wide
+            hover:bg-[#171717]
+            hover:text-white
+            transition-all
+            duration-300
+          "
+        >
+          Voir le lieu
+        </a>
+
+      </motion.div>
+
     </section>
   );
 }

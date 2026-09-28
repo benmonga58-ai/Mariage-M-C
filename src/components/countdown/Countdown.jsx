@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Countdown() {
-  const targetDate = new Date(2026, 7, 29, 0, 0, 0).getTime();
+  // Date de l'anniversaire : 10 octobre 2026
+  const targetDate = new Date(2026, 9, 10, 0, 0, 0).getTime();
 
   const getTimeLeft = () => {
     const now = new Date().getTime();
@@ -21,12 +22,21 @@ export default function Countdown() {
       days: String(
         Math.floor(difference / (1000 * 60 * 60 * 24))
       ).padStart(2, "0"),
+
       hours: String(
-        Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        Math.floor(
+          (difference % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        )
       ).padStart(2, "0"),
+
       minutes: String(
-        Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        Math.floor(
+          (difference % (1000 * 60 * 60)) /
+            (1000 * 60)
+        )
       ).padStart(2, "0"),
+
       seconds: String(
         Math.floor((difference % (1000 * 60)) / 1000)
       ).padStart(2, "0"),
@@ -44,71 +54,120 @@ export default function Countdown() {
   }, []);
 
   const items = [
-    { value: timeLeft.days, label: "JOURS" },
-    { value: timeLeft.hours, label: "HEURES" },
-    { value: timeLeft.minutes, label: "MINUTES" },
-    { value: timeLeft.seconds, label: "SECONDES" },
+    { value: timeLeft.days, label: "Jours" },
+    { value: timeLeft.hours, label: "Heures" },
+    { value: timeLeft.minutes, label: "Minutes" },
+    { value: timeLeft.seconds, label: "Secondes" },
   ];
 
   return (
-    <section className="bg-[#F8F4EF] py-28 px-6">
-      <div className="max-w-6xl mx-auto text-center">
+    <section className="relative bg-[#f8f8f6] text-[#171717] py-28 md:py-36 px-6 overflow-hidden">
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="uppercase tracking-[8px] text-[#9B6A6A] text-sm"
-        >
-          COMPTE À REBOURS
-        </motion.p>
+      <div className="max-w-6xl mx-auto">
 
-        <motion.h2
-          initial={{ opacity: 0, y: 25 }}
+        {/* En-tête */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mt-6 text-5xl md:text-7xl font-serif text-[#7B1E1E]"
+          className="text-center"
         >
-          Le grand jour approche
-        </motion.h2>
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-[#777]">
+            Le temps passe...
+          </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mt-20">
+          <h2 className="mt-5 text-4xl md:text-6xl font-light tracking-[-0.04em]">
+            Le grand jour approche
+          </h2>
+
+          <div className="w-12 h-px bg-[#171717]/30 mx-auto mt-8" />
+        </motion.div>
+
+
+        {/* Compte à rebours */}
+        <div className="grid grid-cols-2 md:grid-cols-4 mt-20 md:mt-24">
 
           {items.map((item, index) => (
-
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={item.label}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
-                delay: index * 0.15,
                 duration: 0.7,
+                delay: index * 0.1,
               }}
+              className={`
+                relative
+                text-center
+                py-8
+                md:py-4
+                ${index < 2 ? "border-b md:border-b-0" : ""}
+                ${index % 2 === 0 ? "border-r md:border-r" : ""}
+                md:border-[#171717]/15
+                border-[#171717]/10
+              `}
             >
 
-              <motion.h3
+              {/* Nombre */}
+              <motion.div
                 key={item.value}
-                initial={{ opacity: 0.4, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="font-serif text-[#7B1E1E] text-7xl md:text-8xl"
+                transition={{ duration: 0.2 }}
+                className="
+                  text-6xl
+                  md:text-7xl
+                  lg:text-8xl
+                  font-light
+                  tracking-[-0.06em]
+                  leading-none
+                "
               >
                 {item.value}
-              </motion.h3>
+              </motion.div>
 
-              <div className="w-14 h-[2px] bg-[#D9C1AE] mx-auto my-5"></div>
-
-              <p className="uppercase tracking-[5px] text-sm text-[#8A6A6A]">
+              {/* Label */}
+              <p className="
+                mt-5
+                text-[9px]
+                md:text-[10px]
+                uppercase
+                tracking-[0.3em]
+                text-[#777]
+              ">
                 {item.label}
               </p>
 
             </motion.div>
-
           ))}
 
         </div>
+
+
+        {/* Date */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="text-center mt-20"
+        >
+          <p className="text-xs md:text-sm tracking-[0.25em] uppercase text-[#777]">
+            Samedi
+          </p>
+
+          <p className="
+            mt-3
+            text-lg
+            md:text-xl
+            font-medium
+            tracking-[0.08em]
+          ">
+            10 OCTOBRE 2026
+          </p>
+        </motion.div>
 
       </div>
     </section>
