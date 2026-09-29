@@ -74,11 +74,11 @@ export default function Hero() {
   const card = cards[active];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f8f8f6] text-[#171717]">
+    <section className="relative min-h-screen overflow-hidden bg-[#f3f1ed] text-[#171717]">
 
-      {/* =========================================
+      {/* =====================================================
           HEADER
-      ========================================= */}
+      ===================================================== */}
 
       <header className="absolute top-0 left-0 right-0 z-50 px-6 md:px-10 lg:px-14 py-7">
         <div className="flex items-center justify-between text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-[#777]">
@@ -88,41 +88,67 @@ export default function Hero() {
       </header>
 
 
-      {/* =========================================
+      {/* =====================================================
           GRAND 18 EN ARRIÈRE-PLAN
-      ========================================= */}
+      ===================================================== */}
 
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1.5,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className="
           absolute
-          left-[38%]
-          top-[5%]
+          left-[37%]
+          top-[2%]
           -translate-x-1/2
           font-serif
           text-[280px]
           md:text-[480px]
           lg:text-[650px]
           leading-none
-          text-[#171717]/[0.025]
+          text-[#171717]/[0.035]
           pointer-events-none
           select-none
           z-0
         "
       >
         18
-      </div>
+      </motion.div>
 
 
-      {/* =========================================
+      {/* =====================================================
+          HALO DERRIÈRE EMMANUEL
+      ===================================================== */}
+
+      <div
+        className="
+          absolute
+          right-[7%]
+          top-[17%]
+          w-[42vw]
+          h-[65vh]
+          rounded-full
+          bg-[#b99a78]/[0.10]
+          blur-[110px]
+          pointer-events-none
+          z-0
+        "
+      />
+
+
+      {/* =====================================================
           PHOTO EMMANUEL
-          GRANDE / DROITE / SANS CADRE
-      ========================================= */}
+          DROITE / GRANDE / SANS CADRE
+      ===================================================== */}
 
       <motion.div
         initial={{
           opacity: 0,
-          x: 80,
-          scale: 0.95,
+          x: 90,
+          scale: 0.94,
         }}
         animate={{
           opacity: 1,
@@ -149,8 +175,6 @@ export default function Hero() {
         "
       >
 
-        {/* Halo très léger derrière la silhouette */}
-
         <div
           className="
             absolute
@@ -163,8 +187,6 @@ export default function Hero() {
             blur-[100px]
           "
         />
-
-        {/* Image détourée */}
 
         <img
           src="/images/emmanuel.png"
@@ -185,9 +207,9 @@ export default function Hero() {
       </motion.div>
 
 
-      {/* =========================================
-          CARTES À GAUCHE
-      ========================================= */}
+      {/* =====================================================
+          GRANDE CARTE INFORMATIVE
+      ===================================================== */}
 
       <div
         className="
@@ -199,8 +221,8 @@ export default function Hero() {
           -translate-y-1/2
           z-30
           w-[calc(100%-48px)]
-          md:w-[390px]
-          lg:w-[450px]
+          md:w-[410px]
+          lg:w-[470px]
         "
       >
 
@@ -208,124 +230,254 @@ export default function Hero() {
 
           <motion.div
             key={card.number}
+
             initial={{
               opacity: 0,
               y: 35,
-              rotate: 2,
+              rotate: 1.5,
+              scale: 0.98,
             }}
+
             animate={{
               opacity: 1,
               y: 0,
               rotate: 0,
+              scale: 1,
             }}
+
             exit={{
               opacity: 0,
-              y: -35,
-              rotate: -2,
+              y: -30,
+              rotate: -1.5,
+              scale: 0.98,
             }}
+
             transition={{
               duration: 0.75,
               ease: [0.16, 1, 0.3, 1],
             }}
+
             className="
-              min-h-[430px]
-              md:min-h-[470px]
-              rounded-[30px]
-              border
-              border-[#171717]/10
-              bg-[#f8f8f6]
+              relative
+              min-h-[450px]
+              md:min-h-[500px]
+              rounded-[38px]
+              bg-[#f3f1ed]
               px-7
               py-8
               md:px-10
               md:py-10
-              flex
-              flex-col
-              justify-between
-              shadow-[0_25px_70px_rgba(23,23,23,0.06)]
+
+              shadow-[15px_15px_35px_rgba(23,23,23,0.07),-10px_-10px_30px_rgba(255,255,255,0.75)]
+
+              overflow-hidden
             "
           >
 
-            {/* HAUT */}
+            {/* Bordure intérieure très discrète */}
 
-            <div className="flex items-center justify-between">
+            <div
+              className="
+                absolute
+                inset-[10px]
+                rounded-[31px]
+                border
+                border-white/60
+                pointer-events-none
+              "
+            />
 
-              <div className="flex items-center gap-2">
 
-                <span className="w-1.5 h-1.5 rounded-full bg-[#a47b55]" />
+            {/* =================================================
+                CONTENU
+            ================================================= */}
 
-                <span className="text-[8px] md:text-[9px] tracking-[0.28em] uppercase text-[#888]">
-                  {card.label}
+            <div className="relative z-10 h-full flex flex-col justify-between">
+
+              {/* HAUT */}
+
+              <div className="flex items-center justify-between">
+
+                <div className="flex items-center gap-2">
+
+                  <span
+                    className="
+                      w-1.5
+                      h-1.5
+                      rounded-full
+                      bg-[#b58a50]
+                    "
+                  />
+
+                  <span
+                    className="
+                      text-[8px]
+                      md:text-[9px]
+                      tracking-[0.28em]
+                      uppercase
+                      text-[#85817b]
+                    "
+                  >
+                    {card.label}
+                  </span>
+
+                </div>
+
+                <span
+                  className="
+                    text-[9px]
+                    tracking-[0.2em]
+                    text-[#aaa49c]
+                  "
+                >
+                  {card.number} / 04
                 </span>
 
               </div>
 
-              <span className="text-[9px] tracking-[0.2em] text-[#999]">
-                {card.number} / 04
-              </span>
 
-            </div>
+              {/* CORPS */}
+
+              <div className="mt-12">
+
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: 38 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.15,
+                  }}
+                  className="
+                    h-px
+                    bg-[#b58a50]
+                    mb-8
+                  "
+                />
+
+                <h2
+                  className="
+                    text-[43px]
+                    md:text-[52px]
+                    lg:text-[58px]
+                    leading-[0.92]
+                    font-light
+                    tracking-[-0.055em]
+                    text-[#252525]
+                  "
+                >
+                  {card.title}
+                </h2>
+
+                <div
+                  className="
+                    w-10
+                    h-px
+                    bg-[#171717]/15
+                    mt-9
+                  "
+                />
+
+                <p
+                  className="
+                    mt-6
+                    max-w-[310px]
+                    text-[11px]
+                    md:text-xs
+                    leading-[1.8]
+                    text-[#77736e]
+                  "
+                >
+                  {card.text}
+                </p>
+
+              </div>
 
 
-            {/* CONTENU */}
+              {/* BAS */}
 
-            <div className="mt-10">
-
-              <div className="w-9 h-px bg-[#a47b55] mb-7" />
-
-              <h2
+              <div
                 className="
-                  text-[43px]
-                  md:text-[52px]
-                  lg:text-[58px]
-                  leading-[0.92]
-                  font-light
-                  tracking-[-0.055em]
-                "
-              >
-                {card.title}
-              </h2>
-
-              <div className="w-10 h-px bg-[#171717]/20 mt-8" />
-
-              <p className="mt-6 max-w-[300px] text-[11px] md:text-xs leading-[1.8] text-[#777]">
-                {card.text}
-              </p>
-
-            </div>
-
-
-            {/* BAS */}
-
-            <div className="flex items-center justify-between gap-4 mt-8">
-
-              <span className="text-[8px] tracking-[0.22em] uppercase text-[#999]">
-                10 octobre 2026
-              </span>
-
-              <a
-                href="#rsvp"
-                className="
-                  inline-flex
+                  flex
                   items-center
-                  gap-3
-                  px-5
-                  py-3
-                  rounded-full
-                  border
-                  border-[#171717]/25
-                  text-[9px]
-                  tracking-[0.12em]
-                  uppercase
-                  whitespace-nowrap
-                  hover:bg-[#171717]
-                  hover:text-white
-                  transition-all
-                  duration-300
+                  justify-between
+                  gap-4
+                  mt-10
                 "
               >
-                Confirmer
-                <span className="text-sm">↗</span>
-              </a>
+
+                <div>
+
+                  <span
+                    className="
+                      block
+                      text-[7px]
+                      tracking-[0.22em]
+                      uppercase
+                      text-[#aaa49c]
+                      mb-1
+                    "
+                  >
+                    Rendez-vous
+                  </span>
+
+                  <span
+                    className="
+                      text-[9px]
+                      tracking-[0.16em]
+                      uppercase
+                      text-[#77736e]
+                    "
+                  >
+                    10 octobre 2026
+                  </span>
+
+                </div>
+
+
+                <a
+                  href="#rsvp"
+                  className="
+                    group
+                    inline-flex
+                    items-center
+                    gap-3
+                    px-5
+                    py-3
+                    rounded-full
+
+                    bg-[#ebe7e0]
+
+                    shadow-[5px_5px_12px_rgba(23,23,23,0.08),-4px_-4px_10px_rgba(255,255,255,0.8)]
+
+                    text-[9px]
+                    tracking-[0.12em]
+                    uppercase
+                    text-[#333]
+
+                    hover:bg-[#171717]
+                    hover:text-white
+
+                    transition-all
+                    duration-300
+                  "
+                >
+                  <span>Confirmer</span>
+
+                  <span
+                    className="
+                      text-sm
+                      transition-transform
+                      duration-300
+                      group-hover:translate-x-1
+                      group-hover:-translate-y-1
+                    "
+                  >
+                    ↗
+                  </span>
+
+                </a>
+
+              </div>
 
             </div>
 
@@ -334,18 +486,24 @@ export default function Hero() {
         </AnimatePresence>
 
 
-        {/* =========================================
+        {/* =====================================================
             INDICATEURS
-        ========================================= */}
+        ===================================================== */}
 
-        <div className="flex items-center gap-3 mt-5 ml-2">
+        <div className="flex items-center gap-3 mt-5 ml-3">
 
           {cards.map((item, index) => (
             <button
               key={item.number}
               type="button"
               onClick={() => setActive(index)}
-              className="flex items-center gap-2"
+              className="
+                flex
+                items-center
+                gap-2
+                cursor-pointer
+              "
+              aria-label={`Afficher la carte ${item.number}`}
             >
 
               <span
@@ -354,6 +512,7 @@ export default function Hero() {
                   tracking-[0.2em]
                   transition-all
                   duration-300
+
                   ${
                     active === index
                       ? "text-[#171717]"
@@ -369,9 +528,10 @@ export default function Hero() {
                   h-px
                   transition-all
                   duration-500
+
                   ${
                     active === index
-                      ? "w-8 bg-[#171717]"
+                      ? "w-8 bg-[#b58a50]"
                       : "w-3 bg-[#bbb]"
                   }
                 `}
@@ -385,28 +545,84 @@ export default function Hero() {
       </div>
 
 
-      {/* =========================================
+      {/* =====================================================
           INFORMATIONS BAS
-      ========================================= */}
+      ===================================================== */}
 
-      <div className="absolute bottom-7 left-6 md:left-10 lg:left-[7%] z-40 text-[8px] md:text-[9px] tracking-[0.25em] uppercase text-[#999]">
+      <div
+        className="
+          absolute
+          bottom-7
+          left-6
+          md:left-10
+          lg:left-[7%]
+          z-40
+          text-[8px]
+          md:text-[9px]
+          tracking-[0.25em]
+          uppercase
+          text-[#999]
+        "
+      >
         18 ans
       </div>
 
-      <div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-40 text-[8px] md:text-[9px] tracking-[0.25em] uppercase text-[#999]">
+      <div
+        className="
+          absolute
+          bottom-7
+          left-1/2
+          -translate-x-1/2
+          z-40
+          text-[8px]
+          md:text-[9px]
+          tracking-[0.25em]
+          uppercase
+          text-[#999]
+        "
+      >
         Emmanuel
       </div>
 
-      <div className="absolute bottom-7 right-6 md:right-10 lg:right-14 z-40 text-[8px] md:text-[9px] tracking-[0.25em] uppercase text-[#999]">
+      <div
+        className="
+          absolute
+          bottom-7
+          right-6
+          md:right-10
+          lg:right-14
+          z-40
+          text-[8px]
+          md:text-[9px]
+          tracking-[0.25em]
+          uppercase
+          text-[#999]
+        "
+      >
         Kinshasa
       </div>
 
 
-      {/* =========================================
-          VERSION MOBILE
-      ========================================= */}
+      {/* =====================================================
+          MOBILE
+      ===================================================== */}
 
-      <div className="absolute bottom-0 left-0 right-0 h-[35vh] bg-gradient-to-t from-[#f8f8f6] via-[#f8f8f6]/60 to-transparent z-20 pointer-events-none md:hidden" />
+      <div
+        className="
+          absolute
+          bottom-0
+          left-0
+          right-0
+          h-[35vh]
+          bg-gradient-to-t
+          from-[#f3f1ed]
+          via-[#f3f1ed]/60
+          to-transparent
+          z-20
+          pointer-events-none
+          md:hidden
+        "
+      />
 
     </section>
   );

@@ -2,16 +2,20 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./gallery.css";
 
-// =====================================================
-// PHOTOS DE LA GALERIE
-// Les photos d'Emmanuel seront ajoutées ici plus tard.
-// Exemple :
-// "/images/emmanuel1.jpg",
-// "/images/emmanuel2.jpg",
-// "/images/emmanuel3.jpg",
-// =====================================================
-
-const images = [];
+const images = [
+  "/images/emmanuel1.jpg",
+  "/images/emmanuel2.jpg",
+  "/images/emmanuel3.jpg",
+  "/images/emmanuel4.jpg",
+  "/images/emmanuel5.jpg",
+  "/images/emmanuel6.jpg",
+  "/images/emmanuel7.jpg",
+  "/images/emmanuel8.jpg",
+  "/images/emmanuel9.jpg",
+  "/images/emmanuel10.jpg",
+  "/images/emmanuel11.jpg",
+  "/images/emmanuel12.jpg",
+];
 
 function MarqueeRow({
   images,
@@ -54,7 +58,7 @@ function MarqueeRow({
           >
             <img
               src={img}
-              alt={`Souvenir ${index + 1}`}
+              alt={`Souvenir d'Emmanuel ${index + 1}`}
               onClick={() => onSelect(img)}
               className="gallery-image"
               draggable="false"
@@ -74,7 +78,6 @@ export default function Gallery() {
       id="gallery"
       className="relative bg-[#f8f8f6] text-[#171717] py-28 md:py-36 overflow-hidden"
     >
-
       {/* En-tête */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
@@ -101,12 +104,7 @@ export default function Gallery() {
         </p>
       </motion.div>
 
-      {/* =====================================================
-          GALERIE
-          Les rangées réapparaîtront automatiquement dès que
-          les photos seront ajoutées dans le tableau "images".
-          ===================================================== */}
-
+      {/* Première rangée */}
       <MarqueeRow
         images={images.slice(0, 4)}
         direction="left"
@@ -114,6 +112,7 @@ export default function Gallery() {
         onSelect={setSelectedImage}
       />
 
+      {/* Deuxième rangée */}
       <MarqueeRow
         images={images.slice(4, 8)}
         direction="right"
@@ -122,13 +121,9 @@ export default function Gallery() {
         reverse
       />
 
+      {/* Troisième rangée */}
       <MarqueeRow
-        images={[
-          images[2],
-          images[5],
-          images[0],
-          images[7],
-        ].filter(Boolean)}
+        images={images.slice(8, 12)}
         direction="left"
         duration={42}
         onSelect={setSelectedImage}
@@ -161,7 +156,6 @@ export default function Gallery() {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
           >
-
             <motion.img
               src={selectedImage}
               alt="Souvenir d'Emmanuel"
@@ -217,11 +211,9 @@ export default function Gallery() {
             >
               ×
             </button>
-
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }
